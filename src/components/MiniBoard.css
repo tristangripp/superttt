@@ -1,21 +1,14 @@
 .mini-board {
     display: grid;
-    grid-template-columns: repeat(3, 50px);
+    grid-template-columns: repeat(3, 100px); /* Increase cell size */
     grid-gap: 5px;
-    border: 3px solid transparent;
+    border: 2px solid gray;
     position: relative;
 }
 
-.mini-board.selected {
-    border-color: red;
-}
-
-.mini-board.inactive {
-    background-color: lightgray;
-    pointer-events: none; /* Makes it unclickable */
-}
-
 .cell {
+    width: 100px; /* Larger width */
+    height: 100px; /* Larger height */
     background: #f0f0f0;
     border: 1px solid #ccc;
     display: flex;
@@ -23,6 +16,10 @@
     justify-content: center;
     font-size: 24px;
     cursor: pointer;
+}
+
+.cell:hover {
+    background: #e0e0e0; /* Highlight on hover */
 }
 
 .winner-overlay {
@@ -35,6 +32,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 24px;
     font-weight: bold;
     color: green;
+    z-index: 1; /* Ensure it's on top of cells */
 }

@@ -1,42 +1,65 @@
 import React, { useState } from 'react';
 import MiniBoard from './MiniBoard';
-import '../Board.css'; // For red border styles
+import './Board.css';
 
-const Board = ({ onWin, setMoves, gameOver }) => {
-  const gridSize = 3; // N x N grid (default: 3x3)
-  const [selectedBoard, setSelectedBoard] = useState(null);
-  const [inactiveBoards, setInactiveBoards] = useState([]); // Boards where wins occurred
+const Board = ({ onWin, setMoves, currentPlayer, setCurrentPlayer, gameOver }) => {
+  const [miniBoardWinners, setMiniBoardWinners] = useState(Array(9).fill(null)); // Track winners of each mini-board
 
-  // Handles selecting a smaller board
-  const handleBoardSelect = (index) => {
-    if (!gameOver && !inactiveBoards.includes(index)) {
-      setSelectedBoard(index);
-      setMoves((prev) => prev + 1); // Increment move count
+  // Function to check if a super tic-tac-toe winner exists
+  const checkSuperWinner = (miniBoardWinners) => {
+    const winningCombos = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for (const combo of winningCombos) {
+      const [a, b, c] = combo;
+      if (
+          miniBoardWinners[a] &&
+          miniBoardWinners[a] === miniBoardWinners[b] &&
+          miniBoardWinners[a] === miniBoardWinners[c]
+      ) {
+        return miniBoardWinners[a]; // Return the super winner ('X' or 'O')
+      }
+    }
+
+    return null; // No winner found
+  };
+
+  // Handle when a mini-board is won
+  const handleMiniBoardWin = (boardIndex, winner) => {
+    const updatedWinners = [...miniBoardWinners];
+    updatedWinners[boardIndex] = winner;
+    setMiniBoardWinners(updatedWinners);
+
+    // Check for super tic-tac-toe winner
+    const superWinner = checkSuperWinner(updatedWinners);
+    if (superWinner) {
+      onWin(superWinner); // Notify App.js of the super winner
     }
   };
 
-  // Marks a board as inactive when a player wins it
-  const handleMiniBoardWin = (index, player) => {
-    setInactiveBoards((prev) => [...prev, index]);
-    onWin(player); // Pass win info to parent
-  };
-
   return (
-      <div className="super-board">
-        {[...Array(gridSize * gridSize)].map((_, i) => (
+      <div className="board">
+        {Array.from({ length: 9 }).map((_, index) => (
             <MiniBoard
-                key={i}
-                index={i}
-                isSelected={selectedBoard === i}
-                isInactive={inactiveBoards.includes(i)}
-                onSelect={() => handleBoardSelect(i)}
-                onWin={(player) => handleMiniBoardWin(i, player)}
+                key={index}
+                onWin={(winner) => handleMiniBoardWin(index, winner)} // Notify when a mini-board is won
+                isInactive={!!miniBoardWinners[index]} // Disable mini-board if it has a winner
                 gameOver={gameOver}
+                currentPlayer={currentPlayer}
+                setCurrentPlayer={setCurrentPlayer}
+                setMoves={setMoves}
             />
         ))}
       </div>
   );
 };
-console.log("Board component loaded");
 
 export default Board;

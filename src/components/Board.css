@@ -1,0 +1,31 @@
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, auto); /* 3x3 grid */
+    gap: 10px; /* Spacing between mini-boards */
+    justify-content: center; /* Center the board */
+    align-items: center; /* Align mini-boards */
+}
+
+.mini-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px); /* 3x3 grid for mini-board */
+    gap: 5px;
+    border: 2px solid gray;
+    position: relative;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.cell:hover {
+    background: #e0e0e0;
+}
