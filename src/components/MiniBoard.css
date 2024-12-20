@@ -1,14 +1,14 @@
 .mini-board {
     display: grid;
-    grid-template-columns: repeat(3, 100px); /* Increase cell size */
+    grid-template-columns: repeat(3, 100px);
     grid-gap: 5px;
     border: 2px solid gray;
     position: relative;
 }
 
 .cell {
-    width: 100px; /* Larger width */
-    height: 100px; /* Larger height */
+    width: 100px;
+    height: 100px;
     background: #f0f0f0;
     border: 1px solid #ccc;
     display: flex;
@@ -19,7 +19,7 @@
 }
 
 .cell:hover {
-    background: #e0e0e0; /* Highlight on hover */
+    background: #e0e0e0;
 }
 
 .winner-overlay {
@@ -35,5 +35,5 @@
     font-size: 24px;
     font-weight: bold;
     color: green;
-    z-index: 1; /* Ensure it's on top of cells */
+    z-index: 1;
 }

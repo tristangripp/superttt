@@ -3,9 +3,8 @@ import MiniBoard from './MiniBoard';
 import './Board.css';
 
 const Board = ({ onWin, setMoves, currentPlayer, setCurrentPlayer, gameOver }) => {
-  const [miniBoardWinners, setMiniBoardWinners] = useState(Array(9).fill(null)); // Track winners of each mini-board
+  const [miniBoardWinners, setMiniBoardWinners] = useState(Array(9).fill(null));
 
-  // Function to check if a super tic-tac-toe winner exists
   const checkSuperWinner = (miniBoardWinners) => {
     const winningCombos = [
       [0, 1, 2],
@@ -25,23 +24,21 @@ const Board = ({ onWin, setMoves, currentPlayer, setCurrentPlayer, gameOver }) =
           miniBoardWinners[a] === miniBoardWinners[b] &&
           miniBoardWinners[a] === miniBoardWinners[c]
       ) {
-        return miniBoardWinners[a]; // Return the super winner ('X' or 'O')
+        return miniBoardWinners[a];
       }
     }
 
-    return null; // No winner found
+    return null;
   };
 
-  // Handle when a mini-board is won
   const handleMiniBoardWin = (boardIndex, winner) => {
     const updatedWinners = [...miniBoardWinners];
     updatedWinners[boardIndex] = winner;
     setMiniBoardWinners(updatedWinners);
 
-    // Check for super tic-tac-toe winner
     const superWinner = checkSuperWinner(updatedWinners);
     if (superWinner) {
-      onWin(superWinner); // Notify App.js of the super winner
+      onWin(superWinner);
     }
   };
 
@@ -50,8 +47,8 @@ const Board = ({ onWin, setMoves, currentPlayer, setCurrentPlayer, gameOver }) =
         {Array.from({ length: 9 }).map((_, index) => (
             <MiniBoard
                 key={index}
-                onWin={(winner) => handleMiniBoardWin(index, winner)} // Notify when a mini-board is won
-                isInactive={!!miniBoardWinners[index]} // Disable mini-board if it has a winner
+                onWin={(winner) => handleMiniBoardWin(index, winner)}
+                isInactive={!!miniBoardWinners[index]}
                 gameOver={gameOver}
                 currentPlayer={currentPlayer}
                 setCurrentPlayer={setCurrentPlayer}

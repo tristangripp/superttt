@@ -1,14 +1,14 @@
 .board {
     display: grid;
-    grid-template-columns: repeat(3, auto); /* 3x3 grid */
-    gap: 10px; /* Spacing between mini-boards */
-    justify-content: center; /* Center the board */
-    align-items: center; /* Align mini-boards */
+    grid-template-columns: repeat(3, auto);
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .mini-board {
     display: grid;
-    grid-template-columns: repeat(3, 100px); /* 3x3 grid for mini-board */
+    grid-template-columns: repeat(3, 100px);
     gap: 5px;
     border: 2px solid gray;
     position: relative;

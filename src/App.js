@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import GameStatus from './components/GameStatus';
+import checkSuperWinner from './components/Board';
 import Board from './components/Board';
 import './App.css';
 

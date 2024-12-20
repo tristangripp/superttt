@@ -12,13 +12,13 @@ const MiniBoard = ({ onWin, isInactive, gameOver, currentPlayer, setCurrentPlaye
     newBoard[index] = currentPlayer;
     setBoard(newBoard);
 
-    setMoves((prevMoves) => prevMoves + 1); // Increment moves counter
-    setCurrentPlayer((prevPlayer) => (prevPlayer === 'X' ? 'O' : 'X')); // Alternate player
+    setMoves((prevMoves) => prevMoves + 1);
+    setCurrentPlayer((prevPlayer) => (prevPlayer === 'X' ? 'O' : 'X'));
 
     const boardWinner = checkWinner(newBoard);
     if (boardWinner) {
       setWinner(boardWinner);
-      onWin(boardWinner); // Notify parent Board of the win
+      onWin(boardWinner);
     }
   };
 
@@ -37,7 +37,7 @@ const MiniBoard = ({ onWin, isInactive, gameOver, currentPlayer, setCurrentPlaye
     for (const combo of winningCombos) {
       const [a, b, c] = combo;
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-        return board[a]; // Return the winner ('X' or 'O')
+        return board[a];
       }
     }
 
